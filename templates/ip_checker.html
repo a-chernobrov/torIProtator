@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Checker - Tor Nodes Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/css/map.css">
+    <style>
+        body { padding: 20px; }
+        .table th, .table td { vertical-align: middle; }
+        .form-control { margin-bottom: 10px; }
+        .nav-tabs { margin-bottom: 20px; }
+        #ip-map {
+            height: 500px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .marker-cluster {
+            background-color: rgba(255, 107, 107, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .filters-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/ip-rotator">IP Rotator</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/ip-checker">IP Checker</a>
+        </li>
+    </ul>
+
+    <h1>IP Checker</h1>
+    
+    <div class="filters-container">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="country-select" class="form-label">Выберите страну:</label>
+                <select id="country-select" class="form-select">
+                    <option value="">-- Выберите страну --</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="city-select" class="form-label">Выберите город:</label>
+                <select id="city-select" class="form-select" disabled>
+                    <option value="">-- Сначала выберите страну --</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Карта для отображения маркеров -->
+    <div id="ip-map"></div>
+    
+    <!-- Таблица с данными -->
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Город</th>
+                <th>ASN</th>
+                <th>CIDR</th>
+                <th>Владелец</th>
+                <th>Количество IP</th>
+            </tr>
+        </thead>
+        <tbody id="ip-data-table">
+            <!-- Здесь будут выводиться данные -->
+        </tbody>
+    </table>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        // Инициализация карты
+        function initMap() {
+            map = L.map('ip-map').setView([30, 10], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        }
+        
+        // Загрузка списка стран
+        async function loadCountries() {
+            try {
+                const response = await fetch('/api/countries');
+                const countries = await response.json();
+                
+                console.log('Полученные страны:', countries);
+                
+                const countrySelect = document.getElementById('country-select');
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    // Используем либо code, либо country_code
+                    option.value = country.code || country.country_code;
+                    // Используем либо name, либо country_name
+                    option.textContent = country.name || country.country_name;
+                    countrySelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Ошибка при загрузке стран:', error);
+            }
+        }
+        
+        // Загрузка городов для выбранной страны
+        async function loadCities(countryCode) {
+            try {
+                const citySelect = document.getElementById('city-select');
+                citySelect.innerHTML = '<option value="">-- Все города --</option>';
+                citySelect.disabled = true;
+                
+                if (!countryCode) return;
+                
+                const response = await fetch(`/api/cities?country_code=${countryCode}`);
+                const cities = await response.json();
+                
+                console.log('Полученные города:', cities);
+                
+                if (cities.length > 0) {
+                    cities.forEach(city => {
+                        const option = document.createElement('option');
+                        // Используем либо city, либо city_name
+                        const cityName = city.city || city.city_name;
+                        option.value = cityName;
+                        option.textContent = cityName;
+                        
+                        // Координаты могут иметь разные имена полей
+                        const lat = city.latitude || city.lat;
+                        const lon = city.longitude || city.lon;
+                        
+                        if (lat && lon) {
+                            option.dataset.lat = lat;
+                            option.dataset.lon = lon;
+                        }
+                        
+                        citySelect.appendChild(option);
+                    });
+                    citySelect.disabled = false;
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке городов:', error);
+            }
+        }
+        
+        // Загрузка данных об IP-адресах
+        async function loadIpData(countryCode, city = null) {
+            try {
+                clearMap();
+                
+                const url = city 
+                    ? `/api/ip_data?country_code=${countryCode}&city=${encodeURIComponent(city)}`
+                    : `/api/ip_data?country_code=${countryCode}`;
+                
+                const response = await fetch(url);
+                const ipData = await response.json();
+                
+                console.log('Полученные IP-данные:', ipData);
+                
+                // Очищаем таблицу
+                const tableBody = document.getElementById('ip-data-table');
+                tableBody.innerHTML = '';
+                
+                // Заполняем таблицу и добавляем маркеры на карту
+                ipData.forEach(item => {
+                    // Определяем имена полей (они могут различаться)
+                    const cityName = item.city || item.city_name || '-';
+                    const asnId = item.asn_id || item.asn || '-';
+                    const cidr = item.cidr || '-';
+                    const asnName = item.asn_name || item.owner || '-';
+                    const ipCount = item.ip_count || 0;
+                    
+                    // Добавляем строку в таблицу
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${cityName}</td>
+                        <td>${asnId}</td>
+                        <td>${cidr}</td>
+                        <td>${asnName}</td>
+                        <td>${ipCount}</td>
+                    `;
+                    tableBody.appendChild(row);
+                    
+                    // Координаты могут иметь разные имена полей
+                    const lat = item.latitude || item.lat;
+                    const lon = item.longitude || item.lon;
+                    
+                    // Добавляем маркер на карту, если есть координаты
+                    if (lat && lon) {
+                        addMarker({
+                            city: cityName,
+                            asn_id: asnId,
+                            cidr: cidr,
+                            asn_name: asnName,
+                            ip_count: ipCount,
+                            latitude: lat,
+                            longitude: lon
+                        });
+                    }
+                });
+                
+                // Если есть маркеры, центрируем карту
+                if (markers.length > 0) {
+                    const bounds = L.featureGroup(markers).getBounds();
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                }
+                
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+            }
+        }
+        
+        // Добавление маркера на карту
+        function addMarker(item) {
+            const size = Math.min(60, Math.max(30, item.ip_count / 10 + 30));
+            const marker = L.divIcon({
+                html: `<div class="marker-cluster" style="width:${size}px;height:${size}px;">${item.ip_count}</div>`,
+                className: '',
+                iconSize: L.point(size, size)
+            });
+            
+            const m = L.marker([item.latitude, item.longitude], { icon: marker })
+                .addTo(map)
+                .bindPopup(`
+                    <strong>Город:</strong> ${item.city}<br>
+                    <strong>ASN:</strong> ${item.asn_id}<br>
+                    <strong>CIDR:</strong> ${item.cidr}<br>
+                    <strong>Владелец:</strong> ${item.asn_name}<br>
+                    <strong>Количество IP:</strong> ${item.ip_count}
+                `);
+            
+            markers.push(m);
+        }
+        
+        // Очистка маркеров на карте
+        function clearMap() {
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+        }
+        
+        // Обработчики событий
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            loadCountries();
+            
+            // Обработка выбора страны
+            document.getElementById('country-select').addEventListener('change', function() {
+                const countryCode = this.value;
+                loadCities(countryCode);
+                loadIpData(countryCode);
+            });
+            
+            // Обработка выбора города
+            document.getElementById('city-select').addEventListener('change', function() {
+                const countryCode = document.getElementById('country-select').value;
+                const city = this.value;
+                
+                if (city) {
+                    loadIpData(countryCode, city);
+                    
+                    // Центрируем карту на выбранном городе
+                    const selectedOption = this.options[this.selectedIndex];
+                    const lat = parseFloat(selectedOption.dataset.lat);
+                    const lon = parseFloat(selectedOption.dataset.lon);
+                    
+                    if (!isNaN(lat) && !isNaN(lon)) {
+                        map.setView([lat, lon], 10);
+                    }
+                } else {
+                    loadIpData(countryCode);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

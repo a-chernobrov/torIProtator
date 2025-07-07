@@ -1,0 +1,23 @@
+services:
+  tor:
+    build:
+      context: .
+      dockerfile: Dockerfile.tor
+    image: my-tor-ip-changer-tor
+    deploy:
+      replicas: 5
+    ports:
+      - "32781-32785:9050"
+
+  manager:
+    build:
+      context: .
+      dockerfile: Dockerfile.manager
+    image: my-tor-ip-changer-manager
+    ports:
+      - "5000:5000"
+    volumes:
+      - /opt/Pentest/Infra/tunneling/my-tor-ip-changer/config.json:/app/config.json
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - tor

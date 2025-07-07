@@ -1,0 +1,29 @@
+FROM alpine:3.20
+
+RUN apk add --no-cache tor go git
+
+# Создаем директорию для исходников obfs4proxy
+WORKDIR /usr/src
+
+# Клонируем репозиторий obfs4proxy
+RUN git clone https://gitlab.com/yawning/obfs4.git
+
+# Компилируем и устанавливаем obfs4proxy
+WORKDIR /usr/src/obfs4
+RUN go build -o /usr/bin/obfs4proxy ./obfs4proxy
+
+# Создаём файл torrc с настройками
+RUN echo "SocksPort 0.0.0.0:9050" > /etc/tor/torrc && \
+    echo "ControlPort 0.0.0.0:9051" >> /etc/tor/torrc && \
+    echo "HashedControlPassword 16:677115EE610BDA1160B76BC49868A2D4EB2402BB7ADF65D8231B5621B1" >> /etc/tor/torrc && \
+    echo "UseBridges 1" >> /etc/tor/torrc && \
+    echo "ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy" >> /etc/tor/torrc && \
+    echo "Bridge obfs4 91.199.84.46:65535 06110A085F7CD3821836DA2CA94C23F667AF8FDE cert=hnQjXaf+oJn8kytronlOyc1SIbgq+S27gogJVYoi0OvRP3v9J6qzCsBb9ACi6GqH8tSzKw iat-mode=0" >> /etc/tor/torrc && \
+    echo "Bridge obfs4 185.177.207.10:56389 6B84EEA5CE85F8CA28102B0134851F0928921EC2 cert=p9L6+25s8bnfkye1ZxFeAE4mAGY7DH4Gaj7dxngIIzP9BtqrHHwZXdjMK0RVIQ34C7aqZw iat-mode=2" >> /etc/tor/torrc
+# Устанавливаем права для пользователя tor (он уже создан при установке пакета tor)
+RUN mkdir -p /var/lib/tor /var/log/tor && \
+    chown -R tor /var/lib/tor /var/log/tor /etc/tor
+
+USER tor
+
+CMD ["tor"]

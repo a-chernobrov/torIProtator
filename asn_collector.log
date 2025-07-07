@@ -1,0 +1,316 @@
+2025-05-16 20:22:44,920 - INFO - Загружена база GeoLite2-City.mmdb
+2025-05-16 20:22:44,920 - INFO - Загружена база GeoLite2-Country.mmdb
+2025-05-16 20:22:44,921 - INFO - Загружена база GeoLite2-ASN.mmdb
+2025-05-16 20:22:44,921 - INFO - База данных инициализирована
+2025-05-16 20:22:44,922 - INFO - Сбор данных для страны PW
+2025-05-16 20:22:44,922 - INFO - Получение ASN для страны PW по URL: https://whois.ipinsight.io/countries/PW
+2025-05-16 20:22:45,838 - INFO - Найдено 4 ASN для страны PW
+2025-05-16 20:22:45,862 - INFO - Получение CIDR для ASN AS17893 по URL: https://whois.ipinsight.io/AS17893
+2025-05-16 20:22:46,984 - INFO - Найдено 8 CIDR для ASN AS17893
+2025-05-16 20:22:48,312 - INFO - Получение CIDR для ASN AS58932 по URL: https://whois.ipinsight.io/AS58932
+2025-05-16 20:22:49,004 - INFO - Найдено 2 CIDR для ASN AS58932
+2025-05-16 20:22:50,037 - INFO - Получение CIDR для ASN AS133897 по URL: https://whois.ipinsight.io/AS133897
+2025-05-16 20:22:50,994 - INFO - Найдено 2 CIDR для ASN AS133897
+2025-05-16 20:22:52,028 - INFO - Получение CIDR для ASN AS214652 по URL: https://whois.ipinsight.io/AS214652
+2025-05-16 20:22:52,937 - INFO - Найдено 1 CIDR для ASN AS214652
+2025-05-16 20:22:54,183 - INFO - Сбор данных для страны PW завершен
+2025-05-16 20:22:54,183 - INFO - Обработано ASN: 4, CIDR: 13, IP: 13
+2025-05-16 20:22:54,184 - INFO - Результат сбора данных: {'country_code': 'PW', 'asn_count': 4, 'cidr_count': 13, 'ip_count': 13}
+2025-05-16 21:06:45,849 - INFO - Загружена база GeoLite2-City.mmdb
+2025-05-16 21:06:45,851 - INFO - Загружена база GeoLite2-Country.mmdb
+2025-05-16 21:06:45,852 - INFO - Загружена база GeoLite2-ASN.mmdb
+2025-05-16 21:06:45,852 - INFO - База данных инициализирована
+2025-05-16 21:06:45,852 - INFO - Сбор данных для страны ME
+2025-05-16 21:06:45,852 - INFO - Получение ASN для страны ME по URL: https://whois.ipinsight.io/countries/ME
+2025-05-16 21:06:51,877 - INFO - Найдено 20 ASN для страны ME
+2025-05-16 21:06:51,898 - INFO - Получение CIDR для ASN AS8585 по URL: https://whois.ipinsight.io/AS8585
+2025-05-16 21:06:52,962 - INFO - Найдено 15 CIDR для ASN AS8585
+2025-05-16 21:06:54,340 - INFO - Получение CIDR для ASN AS15397 по URL: https://whois.ipinsight.io/AS15397
+2025-05-16 21:06:55,332 - INFO - Найдено 3 CIDR для ASN AS15397
+2025-05-16 21:06:56,584 - INFO - Получение CIDR для ASN AS40981 по URL: https://whois.ipinsight.io/AS40981
+2025-05-16 21:06:57,343 - INFO - Найдено 2 CIDR для ASN AS40981
+2025-05-16 21:06:58,594 - INFO - Получение CIDR для ASN AS43940 по URL: https://whois.ipinsight.io/AS43940
+2025-05-16 21:06:59,770 - INFO - Найдено 63 CIDR для ASN AS43940
+2025-05-16 21:07:01,354 - INFO - Получение CIDR для ASN AS47451 по URL: https://whois.ipinsight.io/AS47451
+2025-05-16 21:07:02,362 - INFO - Найдено 2 CIDR для ASN AS47451
+2025-05-16 21:07:03,617 - INFO - Получение CIDR для ASN AS47881 по URL: https://whois.ipinsight.io/AS47881
+2025-05-16 21:07:04,580 - INFO - Найдено 1 CIDR для ASN AS47881
+2025-05-16 21:07:05,605 - INFO - Получение CIDR для ASN AS51434 по URL: https://whois.ipinsight.io/AS51434
+2025-05-16 21:07:06,424 - INFO - Найдено 1 CIDR для ASN AS51434
+2025-05-16 21:07:07,686 - INFO - Получение CIDR для ASN AS51924 по URL: https://whois.ipinsight.io/AS51924
+2025-05-16 21:07:08,519 - INFO - Найдено 1 CIDR для ASN AS51924
+2025-05-16 21:07:09,794 - INFO - Получение CIDR для ASN AS60861 по URL: https://whois.ipinsight.io/AS60861
+2025-05-16 21:07:10,817 - INFO - Найдено 1 CIDR для ASN AS60861
+2025-05-16 21:07:11,840 - INFO - Получение CIDR для ASN AS62301 по URL: https://whois.ipinsight.io/AS62301
+2025-05-16 21:07:12,650 - INFO - Найдено 3 CIDR для ASN AS62301
+2025-05-16 21:07:13,925 - INFO - Получение CIDR для ASN AS200276 по URL: https://whois.ipinsight.io/AS200276
+2025-05-16 21:07:14,739 - INFO - Найдено 2 CIDR для ASN AS200276
+2025-05-16 21:07:15,999 - INFO - Получение CIDR для ASN AS201649 по URL: https://whois.ipinsight.io/AS201649
+2025-05-16 21:07:16,949 - INFO - Найдено 4 CIDR для ASN AS201649
+2025-05-16 21:07:18,271 - INFO - Получение CIDR для ASN AS201777 по URL: https://whois.ipinsight.io/AS201777
+2025-05-16 21:07:19,049 - INFO - Найдено 1 CIDR для ASN AS201777
+2025-05-16 21:07:20,388 - INFO - Получение CIDR для ASN AS202644 по URL: https://whois.ipinsight.io/AS202644
+2025-05-16 21:07:21,164 - INFO - Найдено 1 CIDR для ASN AS202644
+2025-05-16 21:07:22,174 - INFO - Получение CIDR для ASN AS203506 по URL: https://whois.ipinsight.io/AS203506
+2025-05-16 21:07:22,970 - INFO - Найдено 1 CIDR для ASN AS203506
+2025-05-16 21:07:23,991 - INFO - Получение CIDR для ASN AS203824 по URL: https://whois.ipinsight.io/AS203824
+2025-05-16 21:07:24,742 - INFO - Найдено 5 CIDR для ASN AS203824
+2025-05-16 21:07:26,026 - INFO - Получение CIDR для ASN AS203879 по URL: https://whois.ipinsight.io/AS203879
+2025-05-16 21:07:26,760 - INFO - Найдено 1 CIDR для ASN AS203879
+2025-05-16 21:07:27,994 - INFO - Получение CIDR для ASN AS208568 по URL: https://whois.ipinsight.io/AS208568
+2025-05-16 21:07:28,824 - INFO - Найдено 1 CIDR для ASN AS208568
+2025-05-16 21:07:30,061 - INFO - Получение CIDR для ASN AS208856 по URL: https://whois.ipinsight.io/AS208856
+2025-05-16 21:07:30,952 - INFO - Найдено 1 CIDR для ASN AS208856
+2025-05-16 21:07:32,257 - INFO - Получение CIDR для ASN AS211211 по URL: https://whois.ipinsight.io/AS211211
+2025-05-16 21:07:33,130 - INFO - Найдено 6 CIDR для ASN AS211211
+2025-05-16 21:07:34,400 - INFO - Сбор данных для страны ME завершен
+2025-05-16 21:07:34,400 - INFO - Обработано ASN: 20, CIDR: 115, IP: 115
+2025-05-16 21:07:34,400 - INFO - Результат сбора данных: {'country_code': 'ME', 'asn_count': 20, 'cidr_count': 115, 'ip_count': 115}
+2025-05-16 22:15:21,114 - INFO - Загружена база GeoLite2-City.mmdb
+2025-05-16 22:15:21,115 - INFO - Загружена база GeoLite2-Country.mmdb
+2025-05-16 22:15:21,115 - INFO - Загружена база GeoLite2-ASN.mmdb
+2025-05-16 22:15:21,145 - INFO - База данных инициализирована
+2025-05-16 22:15:21,145 - INFO - Сбор данных для страны CY
+2025-05-16 22:15:21,146 - INFO - Получение ASN для страны CY по URL: https://whois.ipinsight.io/countries/CY
+2025-05-16 22:15:22,521 - INFO - Найдено 119 ASN для страны CY
+2025-05-16 22:15:22,551 - INFO - Получение CIDR для ASN AS3268 по URL: https://whois.ipinsight.io/AS3268
+2025-05-16 22:15:23,239 - INFO - Найдено 4 CIDR для ASN AS3268
+2025-05-16 22:15:24,523 - INFO - Получение CIDR для ASN AS5425 по URL: https://whois.ipinsight.io/AS5425
+2025-05-16 22:15:26,496 - INFO - Найдено 31 CIDR для ASN AS5425
+2025-05-16 22:15:32,936 - INFO - Получение CIDR для ASN AS5504 по URL: https://whois.ipinsight.io/AS5504
+2025-05-16 22:15:34,043 - INFO - Найдено 29 CIDR для ASN AS5504
+2025-05-16 22:15:38,138 - INFO - Получение CIDR для ASN AS5531 по URL: https://whois.ipinsight.io/AS5531
+2025-05-16 22:15:39,121 - INFO - Найдено 4 CIDR для ASN AS5531
+2025-05-16 22:15:41,233 - INFO - Получение CIDR для ASN AS6866 по URL: https://whois.ipinsight.io/AS6866
+2025-05-16 22:15:42,772 - INFO - Найдено 162 CIDR для ASN AS6866
+2025-05-16 22:15:50,947 - INFO - Получение CIDR для ASN AS8544 по URL: https://whois.ipinsight.io/AS8544
+2025-05-16 22:15:52,444 - INFO - Найдено 173 CIDR для ASN AS8544
+2025-05-16 22:15:55,455 - INFO - Получение CIDR для ASN AS8639 по URL: https://whois.ipinsight.io/AS8639
+2025-05-16 22:15:56,339 - INFO - Найдено 1 CIDR для ASN AS8639
+2025-05-16 22:15:57,604 - INFO - Получение CIDR для ASN AS12678 по URL: https://whois.ipinsight.io/AS12678
+2025-05-16 22:15:58,585 - INFO - Найдено 22 CIDR для ASN AS12678
+2025-05-16 22:16:00,676 - INFO - Получение CIDR для ASN AS15805 по URL: https://whois.ipinsight.io/AS15805
+2025-05-16 22:16:01,652 - INFO - Найдено 66 CIDR для ASN AS15805
+2025-05-16 22:16:03,667 - INFO - Получение CIDR для ASN AS16229 по URL: https://whois.ipinsight.io/AS16229
+2025-05-16 22:16:05,025 - INFO - Найдено 159 CIDR для ASN AS16229
+2025-05-16 22:16:11,637 - INFO - Получение CIDR для ASN AS21427 по URL: https://whois.ipinsight.io/AS21427
+2025-05-16 22:16:12,387 - INFO - Найдено 1 CIDR для ASN AS21427
+2025-05-16 22:16:13,633 - INFO - Получение CIDR для ASN AS24655 по URL: https://whois.ipinsight.io/AS24655
+2025-05-16 22:16:14,349 - INFO - Найдено 3 CIDR для ASN AS24655
+2025-05-16 22:16:15,816 - INFO - Получение CIDR для ASN AS29171 по URL: https://whois.ipinsight.io/AS29171
+2025-05-16 22:16:16,761 - INFO - Найдено 3 CIDR для ASN AS29171
+2025-05-16 22:16:18,407 - INFO - Получение CIDR для ASN AS29639 по URL: https://whois.ipinsight.io/AS29639
+2025-05-16 22:16:19,098 - INFO - Найдено 4 CIDR для ASN AS29639
+2025-05-16 22:16:21,259 - INFO - Получение CIDR для ASN AS30916 по URL: https://whois.ipinsight.io/AS30916
+2025-05-16 22:16:22,004 - INFO - Найдено 10 CIDR для ASN AS30916
+2025-05-16 22:16:24,353 - INFO - Получение CIDR для ASN AS34775 по URL: https://whois.ipinsight.io/AS34775
+2025-05-16 22:16:25,293 - INFO - Найдено 7 CIDR для ASN AS34775
+2025-05-16 22:16:28,018 - INFO - Получение CIDR для ASN AS35432 по URL: https://whois.ipinsight.io/AS35432
+2025-05-16 22:16:29,163 - INFO - Найдено 33 CIDR для ASN AS35432
+2025-05-16 22:16:32,118 - INFO - Получение CIDR для ASN AS39666 по URL: https://whois.ipinsight.io/AS39666
+2025-05-16 22:16:32,811 - INFO - Найдено 1 CIDR для ASN AS39666
+2025-05-16 22:16:34,028 - INFO - Получение CIDR для ASN AS39935 по URL: https://whois.ipinsight.io/AS39935
+2025-05-16 22:16:34,752 - INFO - Найдено 1 CIDR для ASN AS39935
+2025-05-16 22:16:35,986 - INFO - Получение CIDR для ASN AS40809 по URL: https://whois.ipinsight.io/AS40809
+2025-05-16 22:16:36,745 - INFO - Найдено 1 CIDR для ASN AS40809
+2025-05-16 22:16:37,989 - INFO - Получение CIDR для ASN AS41697 по URL: https://whois.ipinsight.io/AS41697
+2025-05-16 22:16:38,795 - INFO - Найдено 28 CIDR для ASN AS41697
+2025-05-16 22:16:44,610 - INFO - Получение CIDR для ASN AS42913 по URL: https://whois.ipinsight.io/AS42913
+2025-05-16 22:16:45,497 - INFO - Найдено 1 CIDR для ASN AS42913
+2025-05-16 22:16:46,738 - INFO - Получение CIDR для ASN AS43779 по URL: https://whois.ipinsight.io/AS43779
+2025-05-16 22:16:47,441 - INFO - Найдено 1 CIDR для ASN AS43779
+2025-05-16 22:16:48,654 - INFO - Получение CIDR для ASN AS44364 по URL: https://whois.ipinsight.io/AS44364
+2025-05-16 22:16:49,375 - INFO - Найдено 9 CIDR для ASN AS44364
+2025-05-16 22:16:52,671 - INFO - Получение CIDR для ASN AS44550 по URL: https://whois.ipinsight.io/AS44550
+2025-05-16 22:16:53,386 - INFO - Найдено 6 CIDR для ASN AS44550
+2025-05-16 22:16:55,878 - INFO - Получение CIDR для ASN AS44559 по URL: https://whois.ipinsight.io/AS44559
+2025-05-16 22:16:57,280 - INFO - Найдено 257 CIDR для ASN AS44559
+2025-05-16 22:17:01,092 - INFO - Получение CIDR для ASN AS47583 по URL: https://whois.ipinsight.io/AS47583
+2025-05-16 22:17:03,330 - INFO - Найдено 820 CIDR для ASN AS47583
+2025-05-16 22:17:12,426 - INFO - Получение CIDR для ASN AS48285 по URL: https://whois.ipinsight.io/AS48285
+2025-05-16 22:17:13,313 - INFO - Найдено 5 CIDR для ASN AS48285
+2025-05-16 22:17:14,534 - INFO - Получение CIDR для ASN AS48623 по URL: https://whois.ipinsight.io/AS48623
+2025-05-16 22:17:15,237 - INFO - Найдено 1 CIDR для ASN AS48623
+2025-05-16 22:17:16,255 - INFO - Получение CIDR для ASN AS48988 по URL: https://whois.ipinsight.io/AS48988
+2025-05-16 22:17:16,988 - INFO - Найдено 22 CIDR для ASN AS48988
+2025-05-16 22:17:18,668 - INFO - Получение CIDR для ASN AS49338 по URL: https://whois.ipinsight.io/AS49338
+2025-05-16 22:17:19,342 - INFO - Найдено 1 CIDR для ASN AS49338
+2025-05-16 22:17:20,575 - INFO - Получение CIDR для ASN AS49921 по URL: https://whois.ipinsight.io/AS49921
+2025-05-16 22:17:21,289 - INFO - Найдено 2 CIDR для ASN AS49921
+2025-05-16 22:17:22,772 - INFO - Получение CIDR для ASN AS50007 по URL: https://whois.ipinsight.io/AS50007
+2025-05-16 22:17:23,623 - INFO - Найдено 8 CIDR для ASN AS50007
+2025-05-16 22:17:26,388 - INFO - Получение CIDR для ASN AS50233 по URL: https://whois.ipinsight.io/AS50233
+2025-05-16 22:17:27,069 - INFO - Найдено 1 CIDR для ASN AS50233
+2025-05-16 22:17:28,087 - INFO - Получение CIDR для ASN AS50996 по URL: https://whois.ipinsight.io/AS50996
+2025-05-16 22:17:28,969 - INFO - Найдено 2 CIDR для ASN AS50996
+2025-05-16 22:17:30,587 - INFO - Получение CIDR для ASN AS51228 по URL: https://whois.ipinsight.io/AS51228
+2025-05-16 22:17:31,322 - INFO - Найдено 2 CIDR для ASN AS51228
+2025-05-16 22:17:32,833 - INFO - Получение CIDR для ASN AS51297 по URL: https://whois.ipinsight.io/AS51297
+2025-05-16 22:17:33,548 - INFO - Найдено 2 CIDR для ASN AS51297
+2025-05-16 22:17:35,092 - INFO - Получение CIDR для ASN AS51606 по URL: https://whois.ipinsight.io/AS51606
+2025-05-16 22:17:36,035 - INFO - Найдено 9 CIDR для ASN AS51606
+2025-05-16 22:17:38,628 - INFO - Получение CIDR для ASN AS51609 по URL: https://whois.ipinsight.io/AS51609
+2025-05-16 22:17:39,410 - INFO - Найдено 1 CIDR для ASN AS51609
+2025-05-16 22:17:40,429 - INFO - Получение CIDR для ASN AS52080 по URL: https://whois.ipinsight.io/AS52080
+2025-05-16 22:17:41,175 - INFO - Найдено 7 CIDR для ASN AS52080
+2025-05-16 22:17:42,772 - INFO - Получение CIDR для ASN AS56418 по URL: https://whois.ipinsight.io/AS56418
+2025-05-16 22:17:43,672 - INFO - Найдено 2 CIDR для ASN AS56418
+2025-05-16 22:17:45,135 - INFO - Получение CIDR для ASN AS56528 по URL: https://whois.ipinsight.io/AS56528
+2025-05-16 22:17:45,858 - INFO - Найдено 8 CIDR для ASN AS56528
+2025-05-16 22:17:46,877 - INFO - Получение CIDR для ASN AS56860 по URL: https://whois.ipinsight.io/AS56860
+2025-05-16 22:17:47,586 - INFO - Найдено 1 CIDR для ASN AS56860
+2025-05-16 22:17:48,835 - INFO - Получение CIDR для ASN AS58181 по URL: https://whois.ipinsight.io/AS58181
+2025-05-16 22:17:49,541 - INFO - Найдено 3 CIDR для ASN AS58181
+2025-05-16 22:17:51,066 - INFO - Получение CIDR для ASN AS59655 по URL: https://whois.ipinsight.io/AS59655
+2025-05-16 22:17:52,094 - INFO - Найдено 16 CIDR для ASN AS59655
+2025-05-16 22:17:56,944 - INFO - Получение CIDR для ASN AS61170 по URL: https://whois.ipinsight.io/AS61170
+2025-05-16 22:17:57,677 - INFO - Найдено 3 CIDR для ASN AS61170
+2025-05-16 22:17:59,189 - INFO - Получение CIDR для ASN AS62187 по URL: https://whois.ipinsight.io/AS62187
+2025-05-16 22:17:59,879 - INFO - Найдено 1 CIDR для ASN AS62187
+2025-05-16 22:18:01,120 - INFO - Получение CIDR для ASN AS196736 по URL: https://whois.ipinsight.io/AS196736
+2025-05-16 22:18:01,837 - INFO - Найдено 3 CIDR для ASN AS196736
+2025-05-16 22:18:03,441 - INFO - Получение CIDR для ASN AS196984 по URL: https://whois.ipinsight.io/AS196984
+2025-05-16 22:18:04,124 - INFO - Найдено 1 CIDR для ASN AS196984
+2025-05-16 22:18:05,368 - INFO - Получение CIDR для ASN AS196992 по URL: https://whois.ipinsight.io/AS196992
+2025-05-16 22:18:06,055 - INFO - Найдено 1 CIDR для ASN AS196992
+2025-05-16 22:18:07,289 - INFO - Получение CIDR для ASN AS197648 по URL: https://whois.ipinsight.io/AS197648
+2025-05-16 22:18:08,113 - INFO - Найдено 16 CIDR для ASN AS197648
+2025-05-16 22:18:12,265 - INFO - Получение CIDR для ASN AS197785 по URL: https://whois.ipinsight.io/AS197785
+2025-05-16 22:18:12,996 - INFO - Найдено 1 CIDR для ASN AS197785
+2025-05-16 22:18:14,013 - INFO - Получение CIDR для ASN AS198268 по URL: https://whois.ipinsight.io/AS198268
+2025-05-16 22:18:14,691 - INFO - Найдено 1 CIDR для ASN AS198268
+2025-05-16 22:18:15,922 - INFO - Получение CIDR для ASN AS198336 по URL: https://whois.ipinsight.io/AS198336
+2025-05-16 22:18:16,684 - INFO - Найдено 1 CIDR для ASN AS198336
+2025-05-16 22:18:17,701 - INFO - Получение CIDR для ASN AS198461 по URL: https://whois.ipinsight.io/AS198461
+2025-05-16 22:18:18,613 - INFO - Найдено 1 CIDR для ASN AS198461
+2025-05-16 22:18:19,945 - INFO - Получение CIDR для ASN AS198858 по URL: https://whois.ipinsight.io/AS198858
+2025-05-16 22:18:20,698 - INFO - Найдено 1 CIDR для ASN AS198858
+2025-05-16 22:18:21,940 - INFO - Получение CIDR для ASN AS198943 по URL: https://whois.ipinsight.io/AS198943
+2025-05-16 22:18:22,725 - INFO - Найдено 1 CIDR для ASN AS198943
+2025-05-16 22:18:23,743 - INFO - Получение CIDR для ASN AS199188 по URL: https://whois.ipinsight.io/AS199188
+2025-05-16 22:18:24,447 - INFO - Найдено 2 CIDR для ASN AS199188
+2025-05-16 22:18:25,914 - INFO - Получение CIDR для ASN AS199206 по URL: https://whois.ipinsight.io/AS199206
+2025-05-16 22:18:26,654 - INFO - Найдено 1 CIDR для ASN AS199206
+2025-05-16 22:18:27,672 - INFO - Получение CIDR для ASN AS199631 по URL: https://whois.ipinsight.io/AS199631
+2025-05-16 22:18:28,492 - INFO - Найдено 1 CIDR для ASN AS199631
+2025-05-16 22:18:29,510 - INFO - Получение CIDR для ASN AS200055 по URL: https://whois.ipinsight.io/AS200055
+2025-05-16 22:18:30,205 - INFO - Найдено 1 CIDR для ASN AS200055
+2025-05-16 22:18:31,212 - INFO - Получение CIDR для ASN AS200649 по URL: https://whois.ipinsight.io/AS200649
+2025-05-16 22:18:31,942 - INFO - Найдено 1 CIDR для ASN AS200649
+2025-05-16 22:18:33,232 - INFO - Получение CIDR для ASN AS201241 по URL: https://whois.ipinsight.io/AS201241
+2025-05-16 22:18:33,945 - INFO - Найдено 3 CIDR для ASN AS201241
+2025-05-16 22:18:35,405 - INFO - Получение CIDR для ASN AS201812 по URL: https://whois.ipinsight.io/AS201812
+2025-05-16 22:18:36,124 - INFO - Найдено 1 CIDR для ASN AS201812
+2025-05-16 22:18:37,367 - INFO - Получение CIDR для ASN AS201860 по URL: https://whois.ipinsight.io/AS201860
+2025-05-16 22:18:38,107 - INFO - Найдено 4 CIDR для ASN AS201860
+2025-05-16 22:18:39,125 - INFO - Получение CIDR для ASN AS201872 по URL: https://whois.ipinsight.io/AS201872
+2025-05-16 22:18:39,820 - INFO - Найдено 3 CIDR для ASN AS201872
+2025-05-16 22:18:41,574 - INFO - Получение CIDR для ASN AS202117 по URL: https://whois.ipinsight.io/AS202117
+2025-05-16 22:18:42,284 - INFO - Найдено 1 CIDR для ASN AS202117
+2025-05-16 22:18:43,600 - INFO - Получение CIDR для ASN AS202232 по URL: https://whois.ipinsight.io/AS202232
+2025-05-16 22:18:44,298 - INFO - Найдено 1 CIDR для ASN AS202232
+2025-05-16 22:18:45,545 - INFO - Получение CIDR для ASN AS202448 по URL: https://whois.ipinsight.io/AS202448
+2025-05-16 22:18:46,486 - INFO - Найдено 81 CIDR для ASN AS202448
+2025-05-16 22:18:50,497 - INFO - Получение CIDR для ASN AS202534 по URL: https://whois.ipinsight.io/AS202534
+2025-05-16 22:18:51,373 - INFO - Найдено 1 CIDR для ASN AS202534
+2025-05-16 22:18:52,713 - INFO - Получение CIDR для ASN AS202954 по URL: https://whois.ipinsight.io/AS202954
+2025-05-16 22:18:53,695 - INFO - Найдено 5 CIDR для ASN AS202954
+2025-05-16 22:18:54,967 - INFO - Получение CIDR для ASN AS203206 по URL: https://whois.ipinsight.io/AS203206
+2025-05-16 22:18:55,686 - INFO - Найдено 16 CIDR для ASN AS203206
+2025-05-16 22:18:58,742 - INFO - Получение CIDR для ASN AS203316 по URL: https://whois.ipinsight.io/AS203316
+2025-05-16 22:18:59,454 - INFO - Найдено 1 CIDR для ASN AS203316
+2025-05-16 22:19:00,461 - INFO - Получение CIDR для ASN AS203410 по URL: https://whois.ipinsight.io/AS203410
+2025-05-16 22:19:01,454 - INFO - Найдено 9 CIDR для ASN AS203410
+2025-05-16 22:19:03,773 - INFO - Получение CIDR для ASN AS203598 по URL: https://whois.ipinsight.io/AS203598
+2025-05-16 22:19:04,450 - INFO - Найдено 5 CIDR для ASN AS203598
+2025-05-16 22:19:06,374 - INFO - Получение CIDR для ASN AS203663 по URL: https://whois.ipinsight.io/AS203663
+2025-05-16 22:19:07,273 - INFO - Найдено 1 CIDR для ASN AS203663
+2025-05-16 22:19:08,291 - INFO - Получение CIDR для ASN AS203690 по URL: https://whois.ipinsight.io/AS203690
+2025-05-16 22:19:08,963 - INFO - Найдено 3 CIDR для ASN AS203690
+2025-05-16 22:19:11,029 - INFO - Получение CIDR для ASN AS203946 по URL: https://whois.ipinsight.io/AS203946
+2025-05-16 22:19:11,788 - INFO - Найдено 1 CIDR для ASN AS203946
+2025-05-16 22:19:13,007 - INFO - Получение CIDR для ASN AS204343 по URL: https://whois.ipinsight.io/AS204343
+2025-05-16 22:19:13,724 - INFO - Найдено 3 CIDR для ASN AS204343
+2025-05-16 22:19:15,010 - INFO - Получение CIDR для ASN AS204453 по URL: https://whois.ipinsight.io/AS204453
+2025-05-16 22:19:15,870 - INFO - Найдено 6 CIDR для ASN AS204453
+2025-05-16 22:19:17,591 - INFO - Получение CIDR для ASN AS204775 по URL: https://whois.ipinsight.io/AS204775
+2025-05-16 22:19:18,331 - INFO - Найдено 1 CIDR для ASN AS204775
+2025-05-16 22:19:19,647 - INFO - Получение CIDR для ASN AS204995 по URL: https://whois.ipinsight.io/AS204995
+2025-05-16 22:19:20,608 - INFO - Найдено 5 CIDR для ASN AS204995
+2025-05-16 22:19:22,605 - INFO - Получение CIDR для ASN AS205362 по URL: https://whois.ipinsight.io/AS205362
+2025-05-16 22:19:23,386 - INFO - Найдено 11 CIDR для ASN AS205362
+2025-05-16 22:19:24,405 - INFO - Получение CIDR для ASN AS205972 по URL: https://whois.ipinsight.io/AS205972
+2025-05-16 22:19:25,192 - INFO - Найдено 1 CIDR для ASN AS205972
+2025-05-16 22:19:26,423 - INFO - Получение CIDR для ASN AS206044 по URL: https://whois.ipinsight.io/AS206044
+2025-05-16 22:19:27,157 - INFO - Найдено 1 CIDR для ASN AS206044
+2025-05-16 22:19:28,398 - INFO - Получение CIDR для ASN AS206244 по URL: https://whois.ipinsight.io/AS206244
+2025-05-16 22:19:29,084 - INFO - Найдено 1 CIDR для ASN AS206244
+2025-05-16 22:19:30,101 - INFO - Получение CIDR для ASN AS206502 по URL: https://whois.ipinsight.io/AS206502
+2025-05-16 22:19:30,827 - INFO - Найдено 1 CIDR для ASN AS206502
+2025-05-16 22:19:32,048 - INFO - Получение CIDR для ASN AS206912 по URL: https://whois.ipinsight.io/AS206912
+2025-05-16 22:19:32,772 - INFO - Найдено 3 CIDR для ASN AS206912
+2025-05-16 22:19:34,006 - INFO - Получение CIDR для ASN AS207431 по URL: https://whois.ipinsight.io/AS207431
+2025-05-16 22:19:34,743 - INFO - Найдено 1 CIDR для ASN AS207431
+2025-05-16 22:19:35,978 - INFO - Получение CIDR для ASN AS207440 по URL: https://whois.ipinsight.io/AS207440
+2025-05-16 22:19:36,683 - INFO - Найдено 1 CIDR для ASN AS207440
+2025-05-16 22:19:37,917 - INFO - Получение CIDR для ASN AS207763 по URL: https://whois.ipinsight.io/AS207763
+2025-05-16 22:19:38,613 - INFO - Найдено 1 CIDR для ASN AS207763
+2025-05-16 22:19:39,630 - INFO - Получение CIDR для ASN AS207971 по URL: https://whois.ipinsight.io/AS207971
+2025-05-16 22:19:40,345 - INFO - Найдено 2 CIDR для ASN AS207971
+2025-05-16 22:19:41,865 - INFO - Получение CIDR для ASN AS208040 по URL: https://whois.ipinsight.io/AS208040
+2025-05-16 22:19:42,586 - INFO - Найдено 2 CIDR для ASN AS208040
+2025-05-16 22:19:43,603 - INFO - Получение CIDR для ASN AS208425 по URL: https://whois.ipinsight.io/AS208425
+2025-05-16 22:19:44,279 - INFO - Найдено 25 CIDR для ASN AS208425
+2025-05-16 22:19:45,859 - INFO - Получение CIDR для ASN AS208495 по URL: https://whois.ipinsight.io/AS208495
+2025-05-16 22:19:46,595 - INFO - Найдено 1 CIDR для ASN AS208495
+2025-05-16 22:19:47,843 - INFO - Получение CIDR для ASN AS208561 по URL: https://whois.ipinsight.io/AS208561
+2025-05-16 22:19:48,546 - INFO - Найдено 1 CIDR для ASN AS208561
+2025-05-16 22:19:49,764 - INFO - Получение CIDR для ASN AS208601 по URL: https://whois.ipinsight.io/AS208601
+2025-05-16 22:19:50,478 - INFO - Найдено 1 CIDR для ASN AS208601
+2025-05-16 22:19:51,705 - INFO - Получение CIDR для ASN AS209231 по URL: https://whois.ipinsight.io/AS209231
+2025-05-16 22:19:52,450 - INFO - Найдено 7 CIDR для ASN AS209231
+2025-05-16 22:19:54,184 - INFO - Получение CIDR для ASN AS209366 по URL: https://whois.ipinsight.io/AS209366
+2025-05-16 22:19:55,035 - INFO - Найдено 5 CIDR для ASN AS209366
+2025-05-16 22:19:56,507 - INFO - Получение CIDR для ASN AS209382 по URL: https://whois.ipinsight.io/AS209382
+2025-05-16 22:19:57,213 - INFO - Найдено 4 CIDR для ASN AS209382
+2025-05-16 22:19:59,378 - INFO - Получение CIDR для ASN AS209562 по URL: https://whois.ipinsight.io/AS209562
+2025-05-16 22:20:00,040 - INFO - Найдено 7 CIDR для ASN AS209562
+2025-05-16 22:20:02,616 - INFO - Получение CIDR для ASN AS209617 по URL: https://whois.ipinsight.io/AS209617
+2025-05-16 22:20:03,315 - INFO - Найдено 3 CIDR для ASN AS209617
+2025-05-16 22:20:04,807 - INFO - Получение CIDR для ASN AS209625 по URL: https://whois.ipinsight.io/AS209625
+2025-05-16 22:20:05,525 - INFO - Найдено 1 CIDR для ASN AS209625
+2025-05-16 22:20:06,544 - INFO - Получение CIDR для ASN AS209716 по URL: https://whois.ipinsight.io/AS209716
+2025-05-16 22:20:07,231 - INFO - Найдено 1 CIDR для ASN AS209716
+2025-05-16 22:20:08,492 - INFO - Получение CIDR для ASN AS209772 по URL: https://whois.ipinsight.io/AS209772
+2025-05-16 22:20:09,336 - INFO - Найдено 7 CIDR для ASN AS209772
+2025-05-16 22:20:11,049 - INFO - Получение CIDR для ASN AS210366 по URL: https://whois.ipinsight.io/AS210366
+2025-05-16 22:20:11,788 - INFO - Найдено 2 CIDR для ASN AS210366
+2025-05-16 22:20:13,242 - INFO - Получение CIDR для ASN AS210800 по URL: https://whois.ipinsight.io/AS210800
+2025-05-16 22:20:14,038 - INFO - Найдено 1 CIDR для ASN AS210800
+2025-05-16 22:20:15,057 - INFO - Получение CIDR для ASN AS211239 по URL: https://whois.ipinsight.io/AS211239
+2025-05-16 22:20:15,726 - INFO - Найдено 1 CIDR для ASN AS211239
+2025-05-16 22:20:16,744 - INFO - Получение CIDR для ASN AS211537 по URL: https://whois.ipinsight.io/AS211537
+2025-05-16 22:20:17,414 - INFO - Найдено 3 CIDR для ASN AS211537
+2025-05-16 22:20:19,074 - INFO - Получение CIDR для ASN AS211771 по URL: https://whois.ipinsight.io/AS211771
+2025-05-16 22:20:19,753 - INFO - Найдено 1 CIDR для ASN AS211771
+2025-05-16 22:20:20,980 - INFO - Получение CIDR для ASN AS211839 по URL: https://whois.ipinsight.io/AS211839
+2025-05-16 22:20:21,803 - INFO - Найдено 2 CIDR для ASN AS211839
+2025-05-16 22:20:23,499 - INFO - Получение CIDR для ASN AS212772 по URL: https://whois.ipinsight.io/AS212772
+2025-05-16 22:20:24,268 - INFO - Найдено 13 CIDR для ASN AS212772
+2025-05-16 22:20:28,062 - INFO - Получение CIDR для ASN AS213922 по URL: https://whois.ipinsight.io/AS213922
+2025-05-16 22:20:28,787 - INFO - Найдено 2 CIDR для ASN AS213922
+2025-05-16 22:20:30,312 - INFO - Получение CIDR для ASN AS213936 по URL: https://whois.ipinsight.io/AS213936
+2025-05-16 22:20:31,038 - INFO - Найдено 2 CIDR для ASN AS213936
+2025-05-16 22:20:32,045 - INFO - Получение CIDR для ASN AS214124 по URL: https://whois.ipinsight.io/AS214124
+2025-05-16 22:20:32,780 - INFO - Найдено 15 CIDR для ASN AS214124
+2025-05-16 22:20:37,410 - INFO - Получение CIDR для ASN AS214504 по URL: https://whois.ipinsight.io/AS214504
+2025-05-16 22:20:38,112 - INFO - Найдено 6 CIDR для ASN AS214504
+2025-05-16 22:20:40,455 - INFO - Получение CIDR для ASN AS214979 по URL: https://whois.ipinsight.io/AS214979
+2025-05-16 22:20:41,194 - INFO - Найдено 4 CIDR для ASN AS214979
+2025-05-16 22:20:42,807 - INFO - Получение CIDR для ASN AS215202 по URL: https://whois.ipinsight.io/AS215202
+2025-05-16 22:20:43,530 - INFO - Найдено 3 CIDR для ASN AS215202
+2025-05-16 22:20:44,549 - INFO - Получение CIDR для ASN AS216151 по URL: https://whois.ipinsight.io/AS216151
+2025-05-16 22:20:45,286 - INFO - Найдено 12 CIDR для ASN AS216151
+2025-05-16 22:20:48,482 - INFO - Сбор данных для страны CY завершен
+2025-05-16 22:20:48,483 - INFO - Обработано ASN: 119, CIDR: 2273
+2025-05-16 22:20:48,483 - INFO - Результат сбора данных: {'country_code': 'CY', 'asn_count': 119, 'cidr_count': 2273}

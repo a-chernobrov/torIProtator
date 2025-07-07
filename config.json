@@ -1,0 +1,82 @@
+{
+  "tor_containers": {
+    "my-tor-ip-changer-tor-1": {
+      "socks_port": 9050,
+      "control_port": 9051,
+      "exclude_exit_countries": [
+        "cn"
+      ],
+      "exit_nodes": [
+        "ua",
+        "bg",
+        "pl"
+      ],
+      "circuit_change_interval": 1100,
+      "fallback_exit_nodes": [],
+      "bridges": [
+        "obfs4 [2a0f:5707:aa15::105:1]:8443 7832DE6FA8EFC7DF9976B1E639D4ED1EE354D77D cert=O0fqSJQZWz10giO+YvZP5P5rt3bKkfSIPvZ+59FelOftesLYvxbls7WyWGQfEMHchH4EMw iat-mode=0",
+        "obfs4 [2602:ffd5:1:277::1]:23577 DA288943E06C932D71894853811DA86FB5678844 cert=AFQREK+9414T2Lv6qHTP1n2Sm/s4MKaz19D54IlfKg+WGsJBLYzIhegwDA5oRY1c/cKsTQ iat-mode=0"
+      ]
+    },
+    "my-tor-ip-changer-tor-2": {
+      "socks_port": 9050,
+      "control_port": 9051,
+      "exclude_exit_countries": [
+        "cn"
+      ],
+      "exit_nodes": [
+        "ua",
+        "bg",
+        "pl"
+      ],
+      "circuit_change_interval": 900,
+      "fallback_exit_nodes": [],
+      "bridges": []
+    },
+    "my-tor-ip-changer-tor-3": {
+      "socks_port": 9050,
+      "control_port": 9051,
+      "exclude_exit_countries": [
+        "cn"
+      ],
+      "exit_nodes": [
+        "ua",
+        "bg",
+        "pl"
+      ],
+      "circuit_change_interval": 950,
+      "fallback_exit_nodes": [],
+      "bridges": []
+    },
+    "my-tor-ip-changer-tor-4": {
+      "socks_port": 9050,
+      "control_port": 9051,
+      "exclude_exit_countries": [
+        "cn"
+      ],
+      "exit_nodes": [
+        "ua",
+        "bg",
+        "pl"
+      ],
+      "circuit_change_interval": 1050,
+      "fallback_exit_nodes": [],
+      "bridges": []
+    },
+    "my-tor-ip-changer-tor-5": {
+      "socks_port": 9050,
+      "control_port": 9051,
+      "exclude_exit_countries": [
+        "cn"
+      ],
+      "exit_nodes": [
+        "ua",
+        "bg",
+        "pl"
+      ],
+      "circuit_change_interval": 1000,
+      "fallback_exit_nodes": [],
+      "bridges": []
+    }
+  }
+}

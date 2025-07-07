@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tor Nodes Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/css/map.css">
+    <style>
+        body { padding: 20px; }
+        .table th, .table td { vertical-align: middle; }
+        .form-control { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Tor Nodes Manager</h1>
+    
+    <!-- Контейнер для карты -->
+    <div id="map-container"></div>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Container</th>
+                <th>Current Circuit</th>
+                <th>Speed (ms)</th>
+                <th>Circuit Change Interval (s)</th>
+                <th>Exclude Exit Countries</th>
+                <th>Exit Nodes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="containers-table">
+            {% for container in containers %}
+            <tr data-name="{{ container.name }}">
+                <td>{{ container.name }}</td>
+                <td class="circuit">-</td>
+                <td class="speed">-</td>
+                <td>
+                    <input type="number" class="form-control circuit-change-interval" value="300">
+                </td>
+                <td>
+                    <input type="text" class="form-control exclude-exit-countries" placeholder="ru,cn">
+                </td>
+                <td>
+                    <input type="text" class="form-control exit-nodes" placeholder="us,de,uk">
+                </td>
+                <td>
+                    <button class="btn btn-primary apply-btn">Apply</button>
+                    <button class="btn btn-secondary new-circuit-btn">New Circuit</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchCircuits() {
+            const response = await fetch('/api/circuits');
+            const circuits = await response.json();
+            document.querySelectorAll('#containers-table tr').forEach(row => {
+                const name = row.dataset.name;
+                row.querySelector('.circuit').textContent = circuits[name] || '-';
+            });
+        }
+
+        async function fetchSpeeds() {
+            const response = await fetch('/api/speeds');
+            const speeds = await response.json();
+            document.querySelectorAll('#containers-table tr').forEach(row => {
+                const name = row.dataset.name;
+                row.querySelector('.speed').textContent = speeds[name] || '-';
+            });
+        }
+
+        async function fetchConfig() {
+            const response = await fetch('/api/config');
+            const config = await response.json();
+            document.querySelectorAll('#containers-table tr').forEach(row => {
+                const name = row.dataset.name;
+                const containerConfig = config[name];
+                row.querySelector('.circuit-change-interval').value = containerConfig.circuit_change_interval;
+                row.querySelector('.exclude-exit-countries').value = containerConfig.exclude_exit_countries.join(',');
+                row.querySelector('.exit-nodes').value = containerConfig.exit_nodes.join(',');
+            });
+        }
+
+        document.querySelectorAll('.apply-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const row = btn.closest('tr');
+                const name = row.dataset.name;
+                const circuitChangeInterval = row.querySelector('.circuit-change-interval').value;
+                const excludeExitCountries = row.querySelector('.exclude-exit-countries').value;
+                const exitNodes = row.querySelector('.exit-nodes').value;
+
+                await fetch('/api/update_config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        circuit_change_interval: circuitChangeInterval,
+                        exclude_exit_countries: excludeExitCountries,
+                        exit_nodes: exitNodes
+                    })
+                });
+                fetchCircuits();
+            });
+        });
+
+        document.querySelectorAll('.new-circuit-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const row = btn.closest('tr');
+                const name = row.dataset.name;
+                await fetch('/api/new_circuit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name })
+                });
+                fetchCircuits();
+            });
+        });
+
+        // Обновляем данные каждые 10 секунд
+        setInterval(() => {
+            fetchCircuits();
+            fetchSpeeds();
+        }, 10000);
+
+        // Загружаем начальные данные
+        fetchConfig();
+        fetchCircuits();
+        fetchSpeeds();
+    </script>
+    
+    <!-- Подключение Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Подключение скрипта для работы с картой -->
+    <script src="/static/js/map.js"></script>
+</body>
+</html>
