@@ -42,6 +42,7 @@ controllers = {}
 last_circuits = {}
 last_ips = {}
 node_locations = {}
+ip_location_cache = {}  # Кэш для геолокации IP-адресов
 
 TOR_CONTROL_PASSWORD = "mypassword"
 
@@ -290,33 +291,51 @@ def apply_tor_config(container_info, config):
         return False
 
 def get_tor_containers():
-    containers = client.containers.list(filters={"name": "my-tor-ip-changer-tor"})
-    tor_containers = []
-    for container in containers:
-        name = container.name
-        network_settings = container.attrs["NetworkSettings"]
-        networks = network_settings["Networks"]
-        ip_address = None
-        for network_name, network_info in networks.items():
-            ip_address = network_info["IPAddress"]
-            if ip_address:
-                break
-        if not ip_address:
-            logger.error(f"Не удалось определить IP-адрес для контейнера {name}")
-            continue
+    try:
+        containers = client.containers.list(filters={"name": "toriprotator-tor"})
+        logger.info(f"Docker API вернул {len(containers)} контейнеров с фильтром 'toriprotator-tor'")
         
-        ports = network_settings["Ports"]
-        socks_port = None
-        if "9050/tcp" in ports and ports["9050/tcp"]:
-            socks_port = int(ports["9050/tcp"][0]["HostPort"])
+        # Также попробуем получить все контейнеры для отладки
+        all_containers = client.containers.list()
+        logger.info(f"Всего запущенных контейнеров: {len(all_containers)}")
+        for c in all_containers:
+            logger.info(f"Найден контейнер: {c.name}")
         
-        tor_containers.append({
-            "name": name,
-            "socks_port": socks_port,
-            "control_host": ip_address,
-            "control_port": 9051
-        })
-    return tor_containers
+        tor_containers = []
+        for container in containers:
+            name = container.name
+            logger.info(f"Обрабатываем контейнер: {name}")
+            network_settings = container.attrs["NetworkSettings"]
+            networks = network_settings["Networks"]
+            ip_address = None
+            for network_name, network_info in networks.items():
+                ip_address = network_info["IPAddress"]
+                logger.info(f"Сеть {network_name}: IP = {ip_address}")
+                if ip_address:
+                    break
+            if not ip_address:
+                logger.error(f"Не удалось определить IP-адрес для контейнера {name}")
+                continue
+            
+            ports = network_settings["Ports"]
+            socks_port = None
+            if "9050/tcp" in ports and ports["9050/tcp"]:
+                socks_port = int(ports["9050/tcp"][0]["HostPort"])
+            
+            container_info = {
+                "name": name,
+                "socks_port": socks_port,
+                "control_host": ip_address,
+                "control_port": 9051
+            }
+            logger.info(f"Добавлен контейнер: {container_info}")
+            tor_containers.append(container_info)
+        
+        logger.info(f"Итого найдено Tor контейнеров: {len(tor_containers)}")
+        return tor_containers
+    except Exception as e:
+        logger.error(f"Ошибка при получении списка контейнеров: {e}")
+        return []
 
 def measure_speed(container_ip, internal_socks_port=9050):
     try:
@@ -325,14 +344,15 @@ def measure_speed(container_ip, internal_socks_port=9050):
             "https": f"socks5://{container_ip}:{internal_socks_port}"
         }
         start_time = time.time()
-        response = requests.get("http://checkip.amazonaws.com", proxies=proxies, timeout=10)
+        # Уменьшаем таймаут для более быстрого отклика
+        response = requests.get("http://checkip.amazonaws.com", proxies=proxies, timeout=5)
         latency = (time.time() - start_time) * 1000
         if response.status_code == 200:
             external_ip = response.text.strip()
             return int(latency), external_ip
         return None, None
     except Exception as e:
-        logger.warning(f"Ошибка измерения скорости через {container_ip}:{internal_socks_port}: {e}")
+        logger.debug(f"Ошибка измерения скорости через {container_ip}:{internal_socks_port}: {e}")
         return None, None
 
 def get_country_center(country_code):
@@ -353,10 +373,17 @@ def get_country_center(country_code):
     return centers.get(str(country_code).upper(), centers["Unknown"])
 
 def get_ip_location(ip_address):
+    global ip_location_cache
+    
+    # Проверяем кэш
+    if ip_address in ip_location_cache:
+        return ip_location_cache[ip_address]
+    
     try:
         db_path = "/app/GeoLite2-City.mmdb"
         country = "Unknown"
         lat = lon = None
+        
         if os.path.exists(db_path):
             with geoip2.database.Reader(db_path) as reader:
                 try:
@@ -366,6 +393,8 @@ def get_ip_location(ip_address):
                     country = response.country.iso_code or response.country.name or "Unknown"
                 except Exception:
                     pass
+                    
+        # Только если локальная база не дала результат, обращаемся к внешнему API
         if lat is None or lon is None:
             try:
                 resp = requests.get(f"http://ip-api.com/json/{ip_address}", timeout=5)
@@ -376,19 +405,34 @@ def get_ip_location(ip_address):
                         lat = data.get("lat")
                         lon = data.get("lon")
             except Exception as e:
-                logger.warning(f"ip-api.com error for {ip_address}: {e}")
+                logger.debug(f"ip-api.com error for {ip_address}: {e}")
+                
+        result = None
         # Если координаты валидны — возвращаем их
         if lat is not None and lon is not None:
-            return {"lat": lat, "lon": lon, "country": country}
+            result = {"lat": lat, "lon": lon, "country": country}
         # Если страна определена — возвращаем центр страны
-        if country and country != "Unknown":
+        elif country and country != "Unknown":
             center = get_country_center(country)
-            return {"lat": center["lat"], "lon": center["lon"], "country": country}
-        # Если ничего не найдено — не строим маркер
-        return None
+            result = {"lat": center["lat"], "lon": center["lon"], "country": country}
+        
+        # Кэшируем результат (включая None)
+        ip_location_cache[ip_address] = result
+        
+        # Ограничиваем размер кэша
+        if len(ip_location_cache) > 1000:
+            # Удаляем половину старых записей
+            keys_to_remove = list(ip_location_cache.keys())[:500]
+            for key in keys_to_remove:
+                del ip_location_cache[key]
+        
+        return result
+        
     except Exception as e:
         logger.warning(f"Ошибка получения геолокации для IP {ip_address}: {e}")
-        return {"lat": 48.3794, "lon": 31.1656, "country": "UA"}
+        fallback = {"lat": 48.3794, "lon": 31.1656, "country": "UA"}
+        ip_location_cache[ip_address] = fallback
+        return fallback
 
 def get_circuit(container_info):
     controller = get_controller(container_info['control_host'], container_info['control_port'])
@@ -490,91 +534,117 @@ def ensure_exit_country(container_info, max_attempts=10):
     return False
 
 def circuit_change_loop():
+    # Словарь для отслеживания времени последней смены цепочки для каждого контейнера
+    last_change_times = {}
+    
     while True:
+        current_time = time.time()
+        
         for container in tor_containers:
             name = container['name']
             if name not in config['tor_containers']:
                 continue
+                
             interval = config['tor_containers'][name].get('circuit_change_interval', 300)
-            time.sleep(interval)
-            logger.info(f"Автоматическая смена цепочки для {name}")
-            ensure_exit_country(container)
+            
+            # Проверяем, нужно ли менять цепочку для этого контейнера
+            if name not in last_change_times:
+                # При первом запуске сразу создаем цепочку
+                logger.info(f"Инициализация цепочки для {name}")
+                ensure_exit_country(container)
+                last_change_times[name] = current_time
+                continue
+                
+            if current_time - last_change_times[name] >= interval:
+                logger.info(f"Автоматическая смена цепочки для {name}")
+                ensure_exit_country(container)
+                last_change_times[name] = current_time
+        
+        # Спим 30 секунд перед следующей проверкой
+        time.sleep(30)
 
 def update_node_locations():
     global node_locations
-    reader = None
+    
+    # Путь к базе данных GeoIP2
+    db_path = "/app/GeoLite2-City.mmdb"
+    if not os.path.exists(db_path):
+        logger.warning(f"База данных GeoIP2 не найдена по пути: {db_path}")
+        return
+    
     try:
-        # Путь к базе данных GeoIP2
-        db_path = "/app/GeoLite2-City.mmdb"
-        if os.path.exists(db_path):
-            reader = geoip2.database.Reader(db_path)
-        else:
-            logger.warning(f"База данных GeoIP2 не найдена по пути: {db_path}")
-            return
-        
-        for container in tor_containers:
-            name = container['name']
-            current_circuit = get_circuit(container)
-            
-            if not current_circuit:
-                continue
+        with geoip2.database.Reader(db_path) as reader:
+            for container in tor_containers:
+                name = container['name']
                 
-            # Получаем информацию о нодах в цепочке
-            nodes = []
-            circuit_parts = current_circuit.split(',')
-            
-            for part in circuit_parts:
-                node_info = part.strip()
-                if '~' in node_info:
-                    node_name, node_ip = node_info.split('~')
-                    node_data = {"name": node_name.strip(), "ip": node_ip.strip()}
+                # Используем уже существующую информацию из node_locations, 
+                # которая обновляется в get_circuit()
+                if name in node_locations and 'nodes' in node_locations[name]:
+                    nodes = []
                     
-                    # Получаем геоданные для IP
-                    try:
-                        response = reader.city(node_ip.strip())
-                        node_data["country"] = response.country.name
-                        node_data["city"] = response.city.name if response.city.name else ""
-                        node_data["latitude"] = response.location.latitude
-                        node_data["longitude"] = response.location.longitude
-                    except Exception as e:
-                        logger.warning(f"Не удалось получить геоданные для IP {node_ip}: {e}")
+                    for node_detail in node_locations[name]['nodes']:
+                        if 'ip' in node_detail:
+                            node_data = node_detail.copy()
+                            
+                            # Получаем геоданные для IP только если их еще нет
+                            if 'latitude' not in node_data or 'longitude' not in node_data:
+                                try:
+                                    response = reader.city(node_detail['ip'])
+                                    node_data["country"] = response.country.name
+                                    node_data["city"] = response.city.name if response.city.name else ""
+                                    node_data["latitude"] = response.location.latitude
+                                    node_data["longitude"] = response.location.longitude
+                                except Exception as e:
+                                    logger.debug(f"Не удалось получить геоданные для IP {node_detail['ip']}: {e}")
+                            
+                            nodes.append(node_data)
                     
-                    nodes.append(node_data)
-            
-            # Сохраняем информацию о нодах для контейнера
-            if nodes:
-                node_locations[name] = {
-                    "nodes": nodes,
-                    "exit_node": nodes[-1] if nodes else None
-                }
+                    # Обновляем информацию о нодах для контейнера
+                    if nodes:
+                        node_locations[name] = {
+                            "nodes": nodes,
+                            "exit_node": nodes[-1] if nodes else None
+                        }
+                        
     except Exception as e:
         logger.error(f"Ошибка при обновлении геоданных: {e}")
-    finally:
-        if reader:
-            reader.close()
 
 def monitor_circuits_and_ips():
     global last_circuits, last_ips
+    location_update_counter = 0
+    
     while True:
         for container in tor_containers:
             name = container['name']
-            current_circuit = get_circuit(container)
-            latency, current_ip = measure_speed(container['control_host'])
+            
+            try:
+                current_circuit = get_circuit(container)
+                latency, current_ip = measure_speed(container['control_host'])
 
-            if name in last_circuits and last_circuits[name] != current_circuit:
-                logger.info(f"Цепочка изменилась для {name}: {current_circuit}")
-            last_circuits[name] = current_circuit
+                if name in last_circuits and last_circuits[name] != current_circuit:
+                    logger.info(f"Цепочка изменилась для {name}: {current_circuit}")
+                last_circuits[name] = current_circuit
 
-            if current_ip:
-                if name in last_ips and last_ips[name] != current_ip:
-                    logger.info(f"Внешний IP изменился для {name}: {current_ip} (задержка: {latency} мс)")
-                last_ips[name] = current_ip
-            else:
-                logger.warning(f"Не удалось получить IP для {name}")
+                if current_ip:
+                    if name in last_ips and last_ips[name] != current_ip:
+                        logger.info(f"Внешний IP изменился для {name}: {current_ip} (задержка: {latency} мс)")
+                    last_ips[name] = current_ip
+                else:
+                    logger.warning(f"Не удалось получить IP для {name}")
+            except Exception as e:
+                logger.error(f"Ошибка мониторинга контейнера {name}: {e}")
         
-        # Обновляем геоданные нод
-        update_node_locations()
-
+        # Обновляем геоданные нод только каждые 5 минут (5 циклов по 60 секунд)
+        location_update_counter += 1
+        if location_update_counter >= 5:
+            try:
+                update_node_locations()
+                location_update_counter = 0
+            except Exception as e:
+                logger.error(f"Ошибка обновления геоданных: {e}")
+                location_update_counter = 0
+        
+        # Ждем 60 секунд перед следующим циклом
         time.sleep(60)
 
 class ConfigWatcher(FileSystemEventHandler):
@@ -709,11 +779,32 @@ observer.start()
 def index():
     return render_template('index.html', containers=tor_containers)
 
+@app.route('/ip-rotator')
+def ip_rotator():
+    return render_template('ip_rotator.html', containers=tor_containers)
+
+@app.route('/ip-checker')
+def ip_checker():
+    return render_template('ip_checker.html')
+
 @app.route('/api/circuits', methods=['GET'])
 def get_circuits():
+    global tor_containers
     circuits = {}
+    logger.info(f"Получен запрос /api/circuits. Найдено контейнеров: {len(tor_containers)}")
+    
+    if not tor_containers:
+        logger.warning("Список tor_containers пуст. Попытка обновить список контейнеров...")
+        tor_containers = get_tor_containers()
+        logger.info(f"После обновления найдено контейнеров: {len(tor_containers)}")
+    
     for container in tor_containers:
-        circuits[container['name']] = get_circuit(container)
+        logger.info(f"Получение цепочки для контейнера: {container['name']}")
+        circuit_info = get_circuit(container)
+        circuits[container['name']] = circuit_info
+        logger.info(f"Цепочка для {container['name']}: {circuit_info}")
+    
+    logger.info(f"Возвращаем данные о цепочках: {circuits}")
     return jsonify(circuits)
 
 @app.route('/api/speeds', methods=['GET'])
@@ -820,6 +911,44 @@ def get_node_locations():
                 })
         result[name] = {"nodes": nodes}
     return jsonify(result)
+
+@app.route('/api/debug', methods=['GET'])
+def debug_info():
+    debug_data = {
+        "tor_containers_count": len(tor_containers),
+        "tor_containers": tor_containers,
+        "config_containers": list(config.get('tor_containers', {}).keys()) if config else []
+    }
+    return jsonify(debug_data)
+
+@app.route('/api/countries', methods=['GET'])
+def get_countries():
+    # Возвращаем список стран из конфигурации или базовый список
+    countries = [
+        {"code": "us", "name": "United States"},
+        {"code": "de", "name": "Germany"},
+        {"code": "uk", "name": "United Kingdom"},
+        {"code": "fr", "name": "France"},
+        {"code": "ca", "name": "Canada"},
+        {"code": "au", "name": "Australia"},
+        {"code": "jp", "name": "Japan"},
+        {"code": "ru", "name": "Russia"},
+        {"code": "cn", "name": "China"}
+    ]
+    return jsonify(countries)
+
+@app.route('/api/cities', methods=['GET'])
+def get_cities():
+    country_code = request.args.get('country_code')
+    # Возвращаем базовый список городов для демонстрации
+    cities = [
+        {"city": "New York", "latitude": 40.7128, "longitude": -74.0060},
+        {"city": "Los Angeles", "latitude": 34.0522, "longitude": -118.2437},
+        {"city": "London", "latitude": 51.5074, "longitude": -0.1278},
+        {"city": "Berlin", "latitude": 52.5200, "longitude": 13.4050},
+        {"city": "Tokyo", "latitude": 35.6762, "longitude": 139.6503}
+    ]
+    return jsonify(cities)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
